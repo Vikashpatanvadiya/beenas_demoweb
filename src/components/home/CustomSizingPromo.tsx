@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 // Using brand photo (poster) and video from local `photos` folder
 import product6 from '../../../photos/475448481_18490117453055333_8221004949663647852_n.jpg';
 import { fadeInLeft, fadeInRight } from '@/lib/animations';
@@ -75,12 +76,12 @@ export const CustomSizingPromo = () => {
               ))}
             </div>
 
-            <a
-              href="/shop"
+            <Link
+              to="/shop"
               className="inline-flex items-center justify-center px-8 py-3.5 bg-primary text-primary-foreground text-sm tracking-wider hover:bg-brown/90 transition-all duration-300"
             >
               Explore Custom Fit
-            </a>
+            </Link>
           </motion.div>
         </div>
       </div>
