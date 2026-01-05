@@ -157,13 +157,22 @@ class ProductStore {
       try {
         const existingProducts = JSON.parse(stored);
         const existingIds = new Set(existingProducts.map((p: any) => p.id));
+        const existingHeneenIds = new Set(
+          existingProducts
+            .filter((p: any) => p.collection === 'heneen-collection')
+            .map((p: any) => p.id)
+        );
         
         // Add new folder products
         const newFolderProducts = folderProductsArray.filter((p: any) => !existingIds.has(p.id));
         
-        // Always ensure Heneen products are present (remove old ones and add fresh)
+        // For Heneen products: preserve existing ones (with user updates) and only add new ones
+        const existingHeneenProducts = existingProducts.filter((p: any) => p.collection === 'heneen-collection');
+        const newHeneenProducts = heneenProductsArray.filter((p: any) => !existingHeneenIds.has(p.id));
+        
+        // Merge: keep existing products (including updated Heneen), add new folder products, add new Heneen products
         const productsWithoutHeneen = existingProducts.filter((p: any) => p.collection !== 'heneen-collection');
-        const merged = [...productsWithoutHeneen, ...newFolderProducts, ...heneenProductsArray];
+        const merged = [...productsWithoutHeneen, ...existingHeneenProducts, ...newFolderProducts, ...newHeneenProducts];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
       } catch (e) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([...folderProductsArray, ...heneenProductsArray]));

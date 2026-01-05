@@ -7,6 +7,28 @@ import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { getSearchSuggestions } from '@/utils/search';
 
+// Logo component with fallback
+const Logo = () => {
+  const [showLogo, setShowLogo] = useState(true);
+
+  return (
+    <>
+      {showLogo ? (
+        <img
+          src="/logo.png"
+          alt="BEENAS"
+          className="h-8 sm:h-10 lg:h-12 xl:h-14 w-auto object-contain"
+          onError={() => setShowLogo(false)}
+        />
+      ) : (
+        <span className="font-serif text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-foreground hover:text-primary transition-colors">
+          BEENAS
+        </span>
+      )}
+    </>
+  );
+};
+
 const navLinks = [
   { name: 'New Arrivals', href: '/shop?filter=new' },
   { name: 'Best Sellers', href: '/shop?filter=bestseller' },
@@ -103,9 +125,9 @@ export const Header = ({ cartItemCount: propCartCount }: HeaderProps) => {
           <div className="flex justify-center">
             <Link
               to="/"
-              className="font-serif text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-foreground hover:text-primary transition-colors"
+              className="flex items-center justify-center"
             >
-              BEENAS
+              <Logo />
             </Link>
           </div>
 

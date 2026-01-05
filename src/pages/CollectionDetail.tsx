@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronLeft, SlidersHorizontal, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronDown } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { ProductService } from '@/services/productService';
 import { Collection, Product } from '@/types/product';
 import { ProductCard } from '@/components/product/ProductCard';
-import { Card, CardContent } from '@/components/ui/card';
+import { ProductOptionsModal } from '@/components/product/ProductOptionsModal';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/utils/currency';
 import { useScrollToTop } from '@/hooks/useScrollToTop';
@@ -26,6 +26,8 @@ const CollectionDetail = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [sortBy, setSortBy] = useState('newest');
   const [sortOpen, setSortOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isProductOptionsOpen, setIsProductOptionsOpen] = useState(false);
 
   // Scroll to top when component mounts
   useScrollToTop();
@@ -59,6 +61,16 @@ const CollectionDetail = () => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     }
   });
+
+  const handleOpenProductOptions = (product: Product) => {
+    setSelectedProduct(product);
+    setIsProductOptionsOpen(true);
+  };
+
+  const handleCloseProductOptions = () => {
+    setIsProductOptionsOpen(false);
+    setSelectedProduct(null);
+  };
 
   if (!collection) {
     return (
@@ -194,6 +206,7 @@ const CollectionDetail = () => {
                   key={product.id}
                   product={product}
                   index={index}
+                  onAddToCart={handleOpenProductOptions}
                 />
               ))}
             </div>
@@ -225,6 +238,13 @@ const CollectionDetail = () => {
           </motion.div>
         )}
       </div>
+
+      {/* Product Options Modal */}
+      <ProductOptionsModal
+        product={selectedProduct}
+        isOpen={isProductOptionsOpen}
+        onClose={handleCloseProductOptions}
+      />
     </Layout>
   );
 };
