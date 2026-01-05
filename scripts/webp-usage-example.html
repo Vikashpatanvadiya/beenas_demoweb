@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Images Usage Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-example {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Optimized Images Usage Guide</h1>
+    
+    <div class="image-example">
+        <h2>Method 1: Using &lt;picture&gt; Element (Recommended)</h2>
+        <p>This method serves WebP to supported browsers and falls back to JPG for older browsers:</p>
+        
+        <pre><code>&lt;picture&gt;
+  &lt;source srcset="public/Collection/C1/1/1.webp" type="image/webp"&gt;
+  &lt;img src="public/Collection/C1/1/1.jpg" alt="Description" loading="lazy"&gt;
+&lt;/picture&gt;</code></pre>
+        
+        <div class="image-container">
+            <picture>
+                <source srcset="public/Collection/C1/1/1.webp" type="image/webp">
+                <img src="public/Collection/C1/1/1.jpg" alt="Optimized image example" loading="lazy">
+            </picture>
+        </div>
+    </div>
+    
+    <div class="image-example">
+        <h2>Method 2: Simple JPG Usage</h2>
+        <p>Use the optimized JPG files directly:</p>
+        
+        <pre><code>&lt;img src="public/Collection/C1/1/1.jpg" alt="Description" loading="lazy"&gt;</code></pre>
+        
+        <div class="image-container">
+            <img src="public/Collection/C1/1/1.jpg" alt="Optimized JPG example" loading="lazy">
+        </div>
+    </div>
+    
+    <div class="image-example">
+        <h2>Method 3: Responsive Images</h2>
+        <p>For different screen sizes, you can create multiple versions:</p>
+        
+        <pre><code>&lt;picture&gt;
+  &lt;source media="(max-width: 768px)" srcset="public/Collection/C1/1/1.webp" type="image/webp"&gt;
+  &lt;source media="(max-width: 768px)" srcset="public/Collection/C1/1/1.jpg"&gt;
+  &lt;source srcset="public/Collection/C1/1/1.webp" type="image/webp"&gt;
+  &lt;img src="public/Collection/C1/1/1.jpg" alt="Description" loading="lazy"&gt;
+&lt;/picture&gt;</code></pre>
+    </div>
+    
+    <h2>📊 Optimization Results</h2>
+    <ul>
+        <li><strong>Original size:</strong> 447MB → <strong>Optimized:</strong> 33MB</li>
+        <li><strong>Space saved:</strong> 414MB (93% reduction)</li>
+        <li><strong>Files processed:</strong> 113 images</li>
+        <li><strong>Formats available:</strong> Optimized JPG + WebP</li>
+    </ul>
+    
+    <h2>🚀 Performance Tips</h2>
+    <ul>
+        <li>Always use <code>loading="lazy"</code> for images below the fold</li>
+        <li>Add proper <code>alt</code> attributes for accessibility</li>
+        <li>Consider using CSS <code>object-fit</code> for consistent sizing</li>
+        <li>Test your site's performance with tools like Google PageSpeed Insights</li>
+    </ul>
+    
+    <h2>🔧 Available Scripts</h2>
+    <ul>
+        <li><code>./scripts/check-image-sizes.sh</code> - Analyze current image sizes</li>
+        <li><code>./scripts/optimize-images.sh</code> - Re-run optimization</li>
+        <li><code>./scripts/create-webp.sh</code> - Generate WebP versions</li>
+        <li><code>./scripts/optimization-summary.sh</code> - View optimization results</li>
+    </ul>
+</body>
+</html>
